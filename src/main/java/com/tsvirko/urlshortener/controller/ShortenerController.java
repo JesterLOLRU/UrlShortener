@@ -1,6 +1,7 @@
 package com.tsvirko.urlshortener.controller;
 
 import com.tsvirko.urlshortener.service.ShortenerUrlService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,13 @@ public class ShortenerController {
     private ShortenerUrlService shortenerUrlService;
 
     @GetMapping(path = "/short")
+    @Operation(summary = "Short URL")
     public String shortUrl(@RequestParam String url) {
         return shortenerUrlService.shortURL(url);
     }
 
     @GetMapping(path = "/{url}")
+    @Operation(summary = "Redirect by short URL")
     public ResponseEntity<Void> redirect(@PathVariable String url) {
         return shortenerUrlService.getUrlForRedirect(url);
     }
